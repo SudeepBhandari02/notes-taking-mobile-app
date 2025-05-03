@@ -1,0 +1,16 @@
+{
+  "name": "note-taker-backend",
+  "version": "1.0.0",
+  "description": "express app built for handling note taker app backend services",
+  "license": "ISC",
+  "author": "SudeepBhandari",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "moongose": "^1.0.0"
+  }
+}
