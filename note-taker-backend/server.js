@@ -1,21 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-require('dotenv').config();
+const app = require('./app');
+const connectDb = require('./config/dataBase');
 
-const authRoutes = require('./routes/authRoutes');
-const noteRoutes = require('./routes/noteRoutes');
+const startServer = async () =>{
+    try {
+        connectDb();
+        app.listen(port,()=>{
+            console.log("Server started");
+        })
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-const app = express();
-const PORT = 3000;
-
-// Middleware to parse incoming JSON data
-app.use(bodyParser.json());
-
-// Routes
-app.use('/api/auth', authRoutes);    // login, refresh
-app.use('/api/notes', noteRoutes);   // get, post, delete
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(Server running on http://localhost:${PORT}`);
-});
+startServer();
