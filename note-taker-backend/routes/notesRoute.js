@@ -1,6 +1,6 @@
 const express = require('express');
-const {createNote,getNotes,getNoteById,updateNote,deleteNote} = require(''); //need to import controllers later from their directory
-const authenticateJWT = require(''); //JWt authentication checker // still needs to be defined
+const {createNote,getNotes,getNoteById,updateNote,deleteNote} = require('../controllers/notesController'); 
+const authenticateJWT = require('../middlewares/authenticateJWT'); 
 
 const router = express.Router();
 

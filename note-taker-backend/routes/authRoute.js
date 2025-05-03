@@ -1,5 +1,5 @@
 const express = require('express');
-const {signup,login,refreshToken} = require(''); //need to import controllers later from their directory
+const {signup,login,refreshToken} = require('../controllers/authController');
 
 const router = express.Router();
 
