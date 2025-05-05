@@ -1,13 +1,12 @@
 import {View, Text, TextInput, TouchableOpacity, SafeAreaView} from 'react-native'
 import React, {useState} from 'react'
+import {useAuth} from "../../context/AuthContext";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const login = async () => {
-        alert("logged in");
-    };
+    const {signup} = useAuth();
   return (
       <SafeAreaView>
           <View>
@@ -32,8 +31,8 @@ const Signup = () => {
                   />
               </View>
               <View>
-                  <TouchableOpacity onPress={login}>
-                      <Text>Login</Text>
+                  <TouchableOpacity onPress={(e)=>signup(email,password)}>
+                      <Text>Register</Text>
                   </TouchableOpacity>
               </View>
           </View>
