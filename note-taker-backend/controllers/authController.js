@@ -6,6 +6,8 @@ const { generateAccessToken, generateRefreshToken } = require('../utils/tokenUti
 
 const signup = async (req,res)=> {
     try {
+        console.log("inside signup");
+        
         const {email,password} = req.body;
 
         const userExists =await User.findOne({email});
@@ -38,8 +40,12 @@ const signup = async (req,res)=> {
 
 const login = async (req,res) =>{
     try {
+        console.log("inside login");
+        console.log("BODY:", req.body);
+
         const {email,password} = req.body;
         const user =await User.findOne({email});
+        console.log("User found:", user);
         if(!user){
             return res.status(400).json({
                 error:"Invalid Credentails"

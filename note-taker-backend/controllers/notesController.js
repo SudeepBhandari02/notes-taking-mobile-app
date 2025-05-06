@@ -2,7 +2,9 @@ const Note = require('../models/note');
 
 const createNote = async (req, res) => {
   try {
-    const note = await Note.create(req.body);
+    console.log("inside create note", req.body);
+    const user = req.user.id;
+    const note = await Note.create({ ...req.body, user });
     res.status(201).json(note);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -11,12 +13,13 @@ const createNote = async (req, res) => {
 
 const getNotes = async (req, res) => {
   console.log("inside get notes");
-  
-  const { pinned } = req.query;
-  const filter = pinned ? { pinned: pinned === 'true' } : {};
-
-  const notes = await Note.find(filter).sort({ createdAt: -1 });
-  res.status(200).json(notes);
+  try {
+    const userId = req.user.id; 
+    const notes = await Note.find({ user: userId });
+    res.json(notes);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
 };
 
 const getNoteById = async (req, res) => {
