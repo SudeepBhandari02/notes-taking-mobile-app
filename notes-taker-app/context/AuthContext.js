@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }) => {
         await deleteToken('accessToken');
         await deleteToken('refreshToken');
         setAccessToken(null);
+        router.replace('/');
     };
 
     return (
