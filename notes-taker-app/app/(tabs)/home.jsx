@@ -1,37 +1,20 @@
 import {View, Text, SafeAreaView, TextInput, TouchableOpacity, Alert} from 'react-native'
 import React, {useState} from 'react'
-import axios from "../../api/axiosInstance";
 import {useAuth} from "../../context/AuthContext";
+import {useNotes} from '../../context/NotesContext';
 
 const Home = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const {logout} = useAuth();
+    const {handleSave} = useNotes();
 
     const handleReset = () => {
         setTitle('');
         setDescription('');
     };
 
-    const handleSave = async () => {
-        if (!title.trim() || !description.trim()) {
-            Alert.alert('Validation', 'Please enter both title and description.');
-            return;
-        }
-        try {
-            const response = await axios.post('/api/notes', {
-                title,
-                content: description,
-            });
 
-            Alert.alert('Success', 'Note saved successfully!');
-            setTitle('');
-            setDescription('');
-        } catch (error) {
-            console.error('Error saving note:', error);
-            Alert.alert('Error', 'Failed to save note.');
-        }
-    };
   return (
     <SafeAreaView className={"w-full h-full px-6 bg-[#15042e]"}>
         <View className={"flex flex-row justify-between  items-center gap-28 bg-[#15042e] my-4"}>
@@ -67,7 +50,10 @@ const Home = () => {
             <TouchableOpacity className={"h-12 bg-[#f3f945] rounded-lg flex-1 items-center justify-center"} onPress={handleReset}>
                 <Text className={"font-semibold text-xl text-[#15042e]"}>Reset</Text>
             </TouchableOpacity>
-            <TouchableOpacity className={"h-12 bg-[#f3f945] rounded-lg flex-1 items-center justify-center"} onPress={(e)=> handleSave()}>
+            <TouchableOpacity className={"h-12 bg-[#f3f945] rounded-lg flex-1 items-center justify-center"} onPress={(e)=> {
+                handleSave(title,description);
+                handleReset();
+            }}>
                 <Text className={"font-semibold text-xl text-[#15042e]"}>Save</Text>
             </TouchableOpacity>
 

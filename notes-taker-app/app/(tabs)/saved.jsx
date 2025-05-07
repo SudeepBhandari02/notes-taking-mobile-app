@@ -3,55 +3,107 @@ import {
     Text,
     SafeAreaView,
     FlatList,
-    StyleSheet,
     TouchableOpacity,
-    RefreshControl,
+    RefreshControl, Alert,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import axios from '../../api/axiosInstance';
-import { useNavigation } from '@react-navigation/native';
+import Feather from '@expo/vector-icons/Feather';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React, { useState} from 'react';
+import {useNotes} from "../../context/NotesContext";
+import {useAuth} from "../../context/AuthContext";
+import {router, useFocusEffect} from "expo-router";
 
 const Saved = () => {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(false);
-    const navigation = useNavigation();
+    const {deleteNote, fetchNotes } = useNotes();
+    const { logout } = useAuth();
 
-    const fetchNotes = async () => {
-        setLoading(true);
+    const getNotesData = async () => {
         try {
-            const res = await axios.get('/api/notes');
-            setNotes(res.data); // assuming res.data is an array of notes
+            setLoading(true);
+            const data = await fetchNotes();
+            setNotes(data);
         } catch (error) {
-            console.error('Error fetching notes:', error);
+            console.error("Error fetching notes:", error);
         } finally {
             setLoading(false);
         }
-    };
+    }
 
-    useEffect(() => {
-        fetchNotes();
-    }, []);
+    useFocusEffect(
+        React.useCallback(() => {
+            getNotesData();
+        }, [])
+    );
 
     const renderItem = ({ item }) => (
-        <View style={styles.noteCard}>
-            <Text style={styles.noteTitle}>{item.title}</Text>
-            <Text style={styles.noteContent}>{item.content}</Text>
-        </View>
+        <TouchableOpacity
+            className={"flex flex-row justify-between items-center bg-[#9b72cf] my-2 rounded-md p-4"}
+            onPress={() => router.push({ pathname: "/noteViewer", params: { id: item._id, title: item.title, content: item.content } })}
+        >
+            <View>
+                <Text className={"text-xl text-gray-900 font-semibold "}>
+                    {item.title.length > 20
+                    ? item.title.substring(0, 20) + ' ...'
+                    : item.title}
+                </Text>
+                <Text className={"text-md text-gray-700"}>
+                    {item.content.length > 25
+                        ? item.content.substring(0, 25) + ' ...'
+                        : item.content}
+                </Text>
+            </View>
+            <View className={"flex flex-row justify-center items-center gap-6 mr-2"}>
+                <TouchableOpacity
+                    className="h-14 w-14 border-2 rounded-full flex items-center justify-center"
+                    onPress={() => router.push({ pathname: "/editNote", params: { id: item._id, title: item.title, content: item.content } })}
+                >
+                    <Feather name="edit-3" size={24} color="#111827" />
+                </TouchableOpacity>
+                <TouchableOpacity className={"h-14 w-14 border-2 rounded-full flex items-center justify-center"}
+                onPress={() =>
+                    Alert.alert(
+                        `Delete ${item.title}`,
+                        'Are you sure you want to delete this note?',
+                        [
+                            {text: 'Cancel', style: 'cancel'},
+                            {text: 'Delete', onPress: async () => {
+                                    await deleteNote(item._id);
+                                    await getNotesData();
+                                }
+                                },
+                        ]
+                    )
+
+
+                }
+                >
+                    <MaterialIcons name="delete" size={24} color="#111827" />
+                </TouchableOpacity>
+            </View>
+        </TouchableOpacity>
     );
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.heading}>Saved Notes</Text>
+        <SafeAreaView className={"w-full h-full px-6 bg-[#15042e]"}>
+            <View className={"flex flex-row justify-between  items-center gap-28 bg-[#15042e] my-4"}>
+                <Text className={"text-[#9b72cf] font-semibold text-3xl"}>Saved Notes</Text>
+                <TouchableOpacity className={"px-4 py-2 rounded-lg bg-[#d0342c]"} onPress={(e)=>logout()}>
+                    <Text className={"text-white"}>Log Out</Text>
+                </TouchableOpacity>
+            </View>
 
             <FlatList
                 data={notes}
                 keyExtractor={(item) => item._id}
+                showsVerticalScrollIndicator={false}
                 renderItem={renderItem}
                 refreshControl={
-                    <RefreshControl refreshing={loading} onRefresh={fetchNotes} />
+                    <RefreshControl refreshing={loading} onRefresh={getNotesData} />
                 }
                 ListEmptyComponent={
-                    !loading && <Text style={styles.empty}>No notes available.</Text>
+                    !loading && <Text className={"font-bold text-2xl text-white mt-10"}>No notes available.</Text>
                 }
             />
 
@@ -60,45 +112,3 @@ const Saved = () => {
 };
 
 export default Saved;
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 16,
-        flex: 1,
-    },
-    heading: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 12,
-        textAlign: 'center',
-    },
-    noteCard: {
-        backgroundColor: '#f4f4f4',
-        padding: 14,
-        borderRadius: 8,
-        marginVertical: 8,
-    },
-    noteTitle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        marginBottom: 6,
-    },
-    noteContent: {
-        fontSize: 14,
-        color: '#333',
-    },
-    backBtn: {
-        marginTop: 20,
-        alignItems: 'center',
-    },
-    backBtnText: {
-        color: '#4682B4',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    empty: {
-        textAlign: 'center',
-        marginTop: 50,
-        color: '#999',
-    },
-});
