@@ -15,7 +15,7 @@ const getNotes = async (req, res) => {
   console.log("inside get notes");
   try {
     const userId = req.user.id; 
-    const notes = await Note.find({ user: userId });
+    const notes = await Note.find({ user: userId }).sort({ updatedAt: -1 });
     res.json(notes);
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
