@@ -1,5 +1,5 @@
 
-# Notes Mobile App (React Native + Express + MongoDB)
+# Notes Mobile App (React Native + Axios + Express + MongoDB)
 
 This is a secure, full-stack **Notes Mobile Application** built using:
 - React Native (Expo) for the frontend
