@@ -7,7 +7,7 @@ This is a secure, full-stack **Notes Mobile Application** built using:
 - MongoDB + Mongoose for data storage
 - JWT Authentication and Refresh Tokens
 - bcrypt for password hashing
-- Secure storage using expo-secure-store or expo-keychain
+- Secure storage using expo-secure-store
 
 ---
 
@@ -23,7 +23,7 @@ This is a secure, full-stack **Notes Mobile Application** built using:
 
 ### Authentication
 - User Signup and Login with JWT tokens
-- Securely store tokens using `expo-secure-store` or `expo-keychain`
+- Securely store tokens using `expo-secure-store`
 - Logout functionality
 
 ### Notes Management
