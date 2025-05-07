@@ -11,16 +11,22 @@ This is a secure, full-stack **Notes Mobile Application** built using:
 
 ---
 
+## 🚀 Demo
+
+![App Demo - 1](./readmeAssets/demo-1.gif)
+![App Demo - 2](./readmeAssets/demo-2.gif)
+
+
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="./Screenshots/index-screen.jpeg" width="200" />
-  <img src="./Screenshots/login-screen.jpeg" width="200" />
-  <img src="./Screenshots/signup-screen.jpeg" width="200" />
-  <img src="./Screenshots/home.jpeg" width="200" />
-  <img src="./Screenshots/saved.jpeg" width="200" />
-  <img src="./Screenshots/note-viewer.jpeg" width="200" />
-  <img src="./Screenshots/note-editor.jpeg" width="200" />
+  <img src="./readmeAssets/index-screen.jpeg" width="200" />
+  <img src="./readmeAssets/login-screen.jpeg" width="200" />
+  <img src="./readmeAssets/signup-screen.jpeg" width="200" />
+  <img src="./readmeAssets/home.jpeg" width="200" />
+  <img src="./readmeAssets/saved.jpeg" width="200" />
+  <img src="./readmeAssets/note-viewer.jpeg" width="200" />
+  <img src="./readmeAssets/note-editor.jpeg" width="200" />
 </p>
 
 ## 🔐 Features
