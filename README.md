@@ -39,6 +39,41 @@ This is a secure, full-stack **Notes Mobile Application** built using:
 ```
 note-taker-backend/
 │
+├── app/
+│   └── (auth)/         # signup, login screens
+│   │     └── _layout.jsx
+│   │     └── login.jsx
+│   │     └── signup.jsx
+│   └── (tabs)/         # home and saved screens
+│   │     └── _layout.jsx
+│   │     └── home.jsx
+│   │     └── saved.jsx
+│   └──_layout.jsx
+│   └──index.jsx       # '/' route
+│
+├── api/
+│   └── axiosInstance.js        # axios config setup and axios interceptors
+├── context/
+│   └── AuthContext.js           #context api for functions login,signup,refreshToken
+│
+├── assets/
+│   └── fonts/              
+│   └── images/          
+│
+├── utils/
+│   └── storage.js                # storing and fetching tokens on native app   
+│           
+│
+├── .env
+└── README.md
+
+
+```
+
+### Backend (Express.js)
+```
+note-taker-backend/
+│
 ├── controllers/
 │   └── authController.js         # signup, login, refresh logic
 │   └── notesController.js        # get, add, update, delete notes
@@ -63,22 +98,6 @@ note-taker-backend/
 └── README.md
 
 
-```
-
-### Backend (Express.js)
-```
-/backend
-├── server.js
-├── models/
-│   └── User.js
-│   └── Note.js
-├── routes/
-│   └── auth.js
-│   └── notes.js
-├── middleware/
-│   └── auth.js
-└── utils/
-    └── token.js
 ```
 
 ---
