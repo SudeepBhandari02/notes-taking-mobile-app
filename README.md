@@ -92,7 +92,8 @@ note-taker-backend/
 ├── utils/
 │   └── tokenUtils.js             # generateAccessToken, generateRefreshToken
 │
-├── .env                          # JWT secrets, config
+├── .env                           # JWT secrets, config
+├── app.js                          # Express app
 ├── server.js                     # Entry point
 ├── package.json
 └── README.md
