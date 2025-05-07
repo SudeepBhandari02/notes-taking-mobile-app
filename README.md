@@ -17,6 +17,10 @@ This is a secure, full-stack **Notes Mobile Application** built using:
   <img src="./Screenshots/index-screen.jpeg" width="200" />
   <img src="./Screenshots/login-screen.jpeg" width="200" />
   <img src="./Screenshots/signup-screen.jpeg" width="200" />
+  <img src="./Screenshots/home.jpeg" width="200" />
+  <img src="./Screenshots/saved.jpeg" width="200" />
+  <img src="./Screenshots/note-viewer.jpeg" width="200" />
+  <img src="./Screenshots/note-editor.jpeg" width="200" />
 </p>
 
 ## 🔐 Features
