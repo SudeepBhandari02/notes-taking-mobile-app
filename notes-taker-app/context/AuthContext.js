@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
     const [accessToken, setAccessToken] = useState(null);
 
     useEffect(() => {
-        // Check tokens on app start
         const bootstrap = async () => {
             const storedToken = await getToken('accessToken');
             if (storedToken) {
