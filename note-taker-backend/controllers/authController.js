@@ -12,7 +12,7 @@ const signup = async (req,res)=> {
 
         const userExists =await User.findOne({email});
         if(userExists){
-            return res.status(400).json({error:"User already Exists"});
+            return res.status(409).json({message:"User already Exists"});
         }
 
         const hashedPassword = await bcrypt.hash(password,10);
@@ -40,23 +40,17 @@ const signup = async (req,res)=> {
 
 const login = async (req,res) =>{
     try {
-        console.log("inside login");
-        console.log("BODY:", req.body);
 
         const {email,password} = req.body;
         const user =await User.findOne({email});
-        console.log("User found:", user);
         if(!user){
-            return res.status(400).json({
-                error:"Invalid Credentails"
+            return res.status(404).json({
+                message:"User not found"
             })
         }
-        console.log("email : "+email + " Password :"+password);
-        console.log("hashedPassword :"+user.password);
-        
         const passwordMatch = await bcrypt.compare(password,user.password);
         if (!passwordMatch){
-            return res.status(400).json({ error: 'Invalid credentials'});
+            return res.status(401).json({ error: 'Invalid credentials'});
         }
 
         const accessToken = generateAccessToken(user);
