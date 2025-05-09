@@ -85,9 +85,3 @@ utils/
 assets/             # Fonts & images
 ```
 
-
-### 🖼️ GIF Preview
-
-```md
-![App Demo](../readmeAssets/demo-1.gif)
-```
