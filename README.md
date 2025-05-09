@@ -12,8 +12,9 @@ This is a secure, full-stack **Notes Mobile Application** built using:
 ---
 
 ## 🚀 Demo
-
+### Demo - 1
 ![App Demo - 1](./readmeAssets/demo-1.gif)
+### Demo -2
 ![App Demo - 2](./readmeAssets/demo-2.gif)
 
 
@@ -35,11 +36,14 @@ This is a secure, full-stack **Notes Mobile Application** built using:
 - User Signup and Login with JWT tokens
 - Securely store tokens using `expo-secure-store`
 - Logout functionality
+- Refresh JWT token
 
 ### Notes Management
 - Create new notes (title + description)
 - Fetch only notes belonging to the logged-in user
-- View list of saved notes
+- View a specific note with note id
+- Edit a specific note
+- Delete a note
 
 ---
 
@@ -47,7 +51,7 @@ This is a secure, full-stack **Notes Mobile Application** built using:
 
 ### Frontend (React Native - Expo)
 ```
-note-taker-backend/
+notes-taker-app/
 │
 ├── app/
 │   └── (auth)/         # signup, login screens
@@ -58,6 +62,9 @@ note-taker-backend/
 │   │     └── _layout.jsx
 │   │     └── home.jsx
 │   │     └── saved.jsx
+│   └── (others)/         # home and saved screens
+│   │     └── noteViewer.jsx
+│   │     └── editNote.jsx
 │   └──_layout.jsx
 │   └──index.jsx       # '/' route
 │
@@ -152,7 +159,7 @@ nodemon server.js
 
 1. Navigate to the frontend folder:
 ```bash
-cd frontend
+cd notes-taker-app
 ```
 2. Install dependencies:
 ```bash
@@ -160,7 +167,7 @@ npm install
 ```
 3. Start the app:
 ```bash
-expo start
+npx expo start
 ```
 
 ---
