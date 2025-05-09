@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {getToken,saveToken,deleteToken} from "../utils/storage";
+import { router } from 'expo-router';
 
 const API_URL =process.env.EXPO_PUBLIC_API_URL;
 
@@ -54,6 +55,9 @@ axiosInstance.interceptors.response.use(
                     console.error('Token refresh failed:', refreshError);
                     await deleteToken('accessToken');
                     await deleteToken('refreshToken');
+                    setTimeout(() => {
+                        router.replace("/"); // redirect to login or root
+                      }, 0);
                     return Promise.reject(refreshError);
                 }
             }
