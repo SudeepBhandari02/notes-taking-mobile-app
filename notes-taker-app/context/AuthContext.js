@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const res = await axios.post('/api/auth/login', { email, password });
+            
         const { accessToken, refreshToken } = res.data;
 
         await saveToken('accessToken', accessToken);
@@ -31,23 +32,42 @@ export const AuthProvider = ({ children }) => {
             router.push("/home");
         }
         } catch (error) {
-            console.log(error.message);
+            if(error.status===404){
+                alert("User doesn't exist, Please register");
+            }
+            else if(error.status===401){
+                alert("Invalid credentials");
+            }
+            else{
+                alert("Server Problem ! Please Try Again ");
+            }
         }
     };
 
     const signup = async (email, password) => {
         try {
             const res = await axios.post('/api/auth/signup', { email, password });
+            console.log(res);
+            
+            if (res.status === 409) {
+                alert("User already exists. Please login.");
+                return
+            }
             const { accessToken, refreshToken } = res.data;
-    
             await saveToken('accessToken', accessToken);
             await saveToken('refreshToken', refreshToken);
             setAccessToken(accessToken);
             if(accessToken) {
                 router.push("/home");
             }
-        } catch (error) {
+        } catch (error) { 
+            if (error.status === 409) {
+                alert("User already exists. Please login.");
+                return
+            }
+            alert('Signup failed. Please try again.');
             console.error('Signup failed:', error.response?.data || error.message);
+            
         }
     };
     
